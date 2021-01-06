@@ -9,7 +9,7 @@ class App {
     this.pathController = new PathController();
 
     window.addEventListener("resize", this.resize.bind(this), false);
-    window.addEventListener("mousedown", this.onDown.bind(this), false);
+    window.addEventListener("mouseup", this.onUp.bind(this), false);
     this.resize();
 
     requestAnimationFrame(this.animate.bind(this));
@@ -31,14 +31,14 @@ class App {
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    this.pathController.draw(this.ctx, t);
+    this.pathController.draw(this.ctx, t, this.stageWidth, this.stageHeight);
   }
 
-  onDown(e) {
+  onUp(e) {
     let cx = e.clientX;
     let cy = e.clientY;
 
-    this.pathController.addPath(cx, cy);
+    this.pathController.addPath(this.ctx, cx, cy);
   }
 }
 

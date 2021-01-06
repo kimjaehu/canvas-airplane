@@ -1,3 +1,5 @@
+import { Path } from "./path.js";
+
 export class PathController {
   constructor(cx, cy) {
     this.cx = cx;
@@ -11,16 +13,15 @@ export class PathController {
     this.stageHeight = stageHeight;
   }
 
-  addPath(cx, cy) {
-    // this.paths.push(new Path(cx, cy));
-    this.paths.push({ cx, cy });
+  addPath(ctx, cx, cy) {
+    this.paths.push(new Path(ctx, cx, cy, this.stageWidth, this.stageHeight));
   }
 
   draw(ctx, t) {
+    let points;
     for (let i = 0; i < this.paths.length; i++) {
       const path = this.paths[i];
-      console.log(path);
-      //   path.draw(ctx, t, path.cx, path.cy);
+      points = path.draw(ctx, t);
     }
   }
 }
