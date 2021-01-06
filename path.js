@@ -6,7 +6,7 @@ export class Path {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
     this.total = 8;
-    this.points = this.getGoldenSpiralPoints(ctx, this.x, this.y);
+    this.points = this.getGoldenSpiralPoints();
   }
 
   draw(ctx, t) {
@@ -29,12 +29,7 @@ export class Path {
     }
   }
 
-  resize(stageWidth, stageHeight) {
-    this.stageWidth = stageWidth;
-    this.stageHeight = stageHeight;
-  }
-
-  getGoldenSpiralPoints(ctx, cx, cy) {
+  getGoldenSpiralPoints() {
     let points = [];
     let size = this.getSize();
     let direction = 1;
@@ -42,10 +37,28 @@ export class Path {
     let width = 0;
     let x = this.x;
     let y = this.y;
-    let x1, y1, x2, y2, x3, y3;
+    let x1 = x,
+      y1 = y,
+      x2 = x,
+      y2 = y,
+      x3 = x,
+      y3 = y;
     let i = 0;
-    // for (let i = 0; i < this.total; i++) {
-    while (x < this.stageWidth || y < this.stageHeight) {
+
+    while (
+      x1 < this.stageWidth &&
+      x1 > 0 &&
+      y1 < this.stageHeight &&
+      y1 > 0 &&
+      x2 < this.stageWidth &&
+      x2 > 0 &&
+      y2 < this.stageHeight &&
+      y2 > 0 &&
+      x3 < this.stageWidth &&
+      x3 > 0 &&
+      y3 < this.stageHeight &&
+      y3 > 0
+    ) {
       direction > 4 && (direction = 1);
       if (i < 1) {
         width = size + prevSize;
@@ -113,7 +126,7 @@ export class Path {
       prevSize = width;
       i++;
     }
-    console.log(points);
+    console.log(this.x, this.y, this.stageWidth, this.stageHeight, points);
     return points;
   }
 
