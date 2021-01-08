@@ -12,11 +12,15 @@ class App {
     // this.title.innerHTML = "KLM";
     // document.body.appendChild(this.title);
 
+    this.paths = [];
+
     this.pathController = new PathController();
 
     window.addEventListener("resize", this.resize.bind(this), false);
     window.addEventListener("mouseup", this.onUp.bind(this), false);
     this.resize();
+
+    requestAnimationFrame(this.animate.bind(this));
   }
 
   resize() {
@@ -27,7 +31,11 @@ class App {
     this.canvas.height = this.stageHeight * 2;
     this.ctx.scale(2, 2);
 
-    this.pathController.resize(this.stageWidth, this.stageHeight);
+    for (let i = 0; i < this.paths.length; i++) {
+      this.paths[i].resize(this.stageWidth, this.stageHeight);
+    }
+
+    // this.pathController.resize(this.stageWidth, this.stageHeight);
   }
 
   animate(t) {
@@ -35,16 +43,17 @@ class App {
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-    this.pathController.draw(this.ctx, t, this.stageWidth, this.stageHeight);
+    for (let i = 0; i < this.paths.length; i++) {
+      this.paths[i].draw(this.ctx, t);
+    }
   }
 
   onUp(e) {
     let cx = e.clientX;
     let cy = e.clientY;
 
-    this.pathController.addPath(this.ctx, cx, cy);
-
-    requestAnimationFrame(this.animate.bind(this));
+    this.paths.push(new PathController(cx, cy));
+    // this.pathController.addPath(this.ctx, cx, cy);
   }
 }
 

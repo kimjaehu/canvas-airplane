@@ -11,19 +11,17 @@ export class Airplane {
     this.airplaneWidth = 180;
     this.airplaneHeight = 150;
 
-    this.airplaneHalf = this.airplaneWidth / 2;
+    this.airplaneWidthHalf = this.airplaneWidth / 2;
 
     this.fps = 24;
     this.fpsTime = 1000 / this.fps;
 
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
-
-    this.x;
-    this.y;
   }
 
-  draw(ctx, t, points) {
+  draw(ctx, t, path) {
+    let points = path.points;
     if (!this.time) {
       this.time = t;
     }
@@ -48,14 +46,21 @@ export class Airplane {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(approximatePt.rotation);
-    ctx.drawImage(
-      this.img,
-      this.imgWidth * this.curFrame,
-      0,
-      this.imgWidth,
-      this.imgHeight,
-      -this.airplaneWidthHalf,
-      -this.airplaneHeight + 20,
+    // ctx.drawImage(
+    //   this.img,
+    //   this.imgWidth * this.curFrame,
+    //   0,
+    //   this.imgWidth,
+    //   this.imgHeight,
+    //   -this.airplaneWidthHalf,
+    //   -this.airplaneHeight + 20,
+    //   this.airplaneWidth,
+    //   this.airplaneHeight
+    // );
+    ctx.fillStyle = "#cc0000";
+    ctx.fillRect(
+      this.airplaneWidthHalf,
+      this.airplaneHeight + 20,
       this.airplaneWidth,
       this.airplaneHeight
     );

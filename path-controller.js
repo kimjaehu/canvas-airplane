@@ -7,23 +7,35 @@ export class PathController {
     this.cy = cy;
     this.paths = [];
     this.cur = 0;
-    this.airplaneController = new AirplaneController();
+
+    // this.airplaneController = new AirplaneController();
   }
 
   resize(stageWidth, stageHeight) {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
+
+    this.airplaneController.resize(stageWidth, stageHeight);
   }
 
-  addPath(ctx, cx, cy) {
-    this.paths.push(new Path(ctx, cx, cy, this.stageWidth, this.stageHeight));
-  }
+  //   addPath(ctx, cx, cy) {
+  //     this.paths.push(new Path(ctx, cx, cy, this.stageWidth, this.stageHeight));
+  //   }
 
   draw(ctx, t) {
-    let points;
-    for (let i = 0; i < this.paths.length; i++) {
-      points = this.paths[i].draw(ctx, t);
-    }
-    this.airplaneController.draw(ctx, t, points);
+    this.path = new Path(
+      ctx,
+      this.cx,
+      this.cy,
+      this.stageWidth,
+      this.stageHeight
+    );
+    this.path.draw(ctx, t);
+    // for (let i = 0; i < this.paths.length; i++) {
+
+    //     this.paths[i].draw(ctx, t);
+
+    //   this.airplaneController.draw(ctx, t, this.paths[i]);
+    // }
   }
 }

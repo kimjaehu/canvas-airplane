@@ -8,8 +8,6 @@ export class AirplaneController {
     };
     this.img.src = "airplane.png";
 
-    this.airplanes = [];
-
     this.cur = 0;
     this.isLoaded = false;
   }
@@ -25,18 +23,14 @@ export class AirplaneController {
   }
 
   addAirplane() {
-    this.airplanes.push(
-      new Airplane(this.img, this.stageHeight, this.stageWidth)
-    );
+    this.airplane = new Airplane(this.img, this.stageHeight, this.stageWidth);
+    this.isLoaded = true;
   }
 
-  draw(ctx, t, points) {
+  draw(ctx, t, path) {
     if (this.isLoaded) {
-      this.cur += 1;
-      this.addAirplane();
-      for (let i = this.airplanes.length - 1; i >= 0; i--) {
-        this.airplanes[i].draw(ctx, t, points);
-      }
+      this.loaded();
+      this.airplane.draw(ctx, t, path);
     }
   }
 }
