@@ -8,6 +8,9 @@ export class AirplaneController {
     };
     this.img.src = "airplane.png";
 
+    this.airplanes = [];
+
+    this.cur = 0;
     this.isLoaded = false;
   }
 
@@ -18,14 +21,22 @@ export class AirplaneController {
 
   loaded() {
     this.isLoaded = true;
-    this.airplane = new Airplane(this.img, this.stageHeight, this.stageWidth);
+    this.addAirplane();
+  }
+
+  addAirplane() {
+    this.airplanes.push(
+      new Airplane(this.img, this.stageHeight, this.stageWidth)
+    );
   }
 
   draw(ctx, t, points) {
-    this.loaded();
-    console.log(this.airplane);
     if (this.isLoaded) {
-      this.airplane.draw(ctx, t, points);
+      this.cur += 1;
+      this.addAirplane();
+      for (let i = this.airplanes.length - 1; i >= 0; i--) {
+        this.airplanes[i].draw(ctx, t, points);
+      }
     }
   }
 }
