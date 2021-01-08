@@ -10,9 +10,9 @@ export class Path {
   }
 
   draw(ctx, t) {
-    ctx.fillStyle = "#cc0000";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
     ctx.strokeStyle = "#FFffff";
-    ctx.beginPath();
+    ctx.lineWidth = 5;
 
     let x1, y1, x2, y2, x3, y3;
 
@@ -24,10 +24,18 @@ export class Path {
       x3 = this.points[i].x3;
       y3 = this.points[i].y3;
 
+      ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+
+      // to show points
+      // ctx.fillRect(x1, y1, 10, 10);
+      // ctx.fillRect(x2, y2, 10, 10);
+      // ctx.fillRect(x3, y3, 10, 10);
       ctx.stroke();
     }
+
+    return this.points;
   }
 
   getGoldenSpiralPoints() {
@@ -177,13 +185,12 @@ export class Path {
         i++;
       }
     }
-    console.log(points);
     return points;
   }
 
   getSize() {
-    const min = 25;
-    const range = min / 2;
+    const min = 10;
+    const range = min * 10;
     return min + Math.random() * range;
   }
 }

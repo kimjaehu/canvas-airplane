@@ -1,3 +1,5 @@
+import { Airplane } from "./airplane.js";
+
 export class AirplaneController {
   constructor() {
     this.img = new Image();
@@ -20,7 +22,9 @@ export class AirplaneController {
   }
 
   draw(ctx, t, points) {
-    if (this.loaded) {
+    this.loaded();
+    console.log(this.airplane);
+    if (this.isLoaded) {
       this.airplane.draw(ctx, t, points);
     }
   }

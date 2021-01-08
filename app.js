@@ -6,13 +6,17 @@ class App {
     this.ctx = this.canvas.getContext("2d");
     document.body.appendChild(this.canvas);
 
+    // put logo in
+    // this.title = document.createElement("div");
+    // this.title.classList.add("title");
+    // this.title.innerHTML = "KLM";
+    // document.body.appendChild(this.title);
+
     this.pathController = new PathController();
 
     window.addEventListener("resize", this.resize.bind(this), false);
     window.addEventListener("mouseup", this.onUp.bind(this), false);
     this.resize();
-
-    requestAnimationFrame(this.animate.bind(this));
   }
 
   resize() {
@@ -39,6 +43,8 @@ class App {
     let cy = e.clientY;
 
     this.pathController.addPath(this.ctx, cx, cy);
+
+    requestAnimationFrame(this.animate.bind(this));
   }
 }
 

@@ -1,5 +1,4 @@
 import { Path } from "./path.js";
-
 import { AirplaneController } from "./airplane-controller.js";
 
 export class PathController {
@@ -8,8 +7,6 @@ export class PathController {
     this.cy = cy;
     this.paths = [];
     this.cur = 0;
-
-    this.airplaneController = new AirplaneController();
   }
 
   resize(stageWidth, stageHeight) {
@@ -19,6 +16,7 @@ export class PathController {
 
   addPath(ctx, cx, cy) {
     this.paths.push(new Path(ctx, cx, cy, this.stageWidth, this.stageHeight));
+    this.airplaneController = new AirplaneController();
   }
 
   draw(ctx, t) {

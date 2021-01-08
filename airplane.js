@@ -40,7 +40,48 @@ export class Airplane {
     this.animate(ctx, points);
   }
 
-  animate(ctx, points) {}
+  animate(ctx, points) {
+    const approximatePt = this.getCoordinates(points);
+    this.x = approximatePt.x;
+    this.y = approximatePt.y;
+
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(approximatePt.rotation);
+    ctx.drawImage(
+      this.img,
+      this.imgWidth * this.curFrame,
+      0,
+      this.imgWidth,
+      this.imgHeight,
+      -this.airplaneWidthHalf,
+      -this.airplaneHeight + 20,
+      this.airplaneWidth,
+      this.airplaneHeight
+    );
+
+    ctx.restore();
+  }
+
+  getCoordinates(points) {
+    for (let i = 0; i < points.length; i++) {
+      let pt = {};
+      const total = 200;
+      for (let cnt = 1; cnt < total; cnt++) {
+        const t = i / total;
+        let pt = this.getPointOnQuad(
+          points[i].x1,
+          points[i].y1,
+          points[i].x2,
+          points[i].y2,
+          points[i].x3,
+          points[i].y3,
+          t
+        );
+      }
+      return pt;
+    }
+  }
 
   getQuadValue(p0, p1, p2, t) {
     return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
