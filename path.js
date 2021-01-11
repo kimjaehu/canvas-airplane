@@ -1,3 +1,5 @@
+import { AirplaneController } from "./airplane-controller.js";
+
 export class Path {
   constructor(ctx, cx, cy, stageWidth, stageHeight) {
     this.x = cx;
@@ -6,12 +8,16 @@ export class Path {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
     this.total = 8;
-    this.points = this.getGoldenSpiralPoints();
+    this.points = [];
+    this.initialSize = this.getSize();
+
+    this.airplaneController = new AirplaneController();
   }
 
   draw(ctx, t) {
+    this.points = this.getGoldenSpiralPoints();
     ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-    ctx.strokeStyle = "#FFffff";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.9)";
     ctx.lineWidth = 5;
 
     let x1, y1, x2, y2, x3, y3;
@@ -26,21 +32,33 @@ export class Path {
 
       ctx.beginPath();
       ctx.moveTo(x1, y1);
-      ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
 
-      // to show points
+      // ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+
+      ctx.quadraticCurveTo(x2, y2, x3, y3);
+
       // ctx.fillRect(x1, y1, 10, 10);
       // ctx.fillRect(x2, y2, 10, 10);
       // ctx.fillRect(x3, y3, 10, 10);
+
       ctx.stroke();
     }
+    this.airplaneController.draw(ctx, t, this.points);
 
+    return this.points;
+  }
+
+  resize(stageWidth, stageHeight) {
+    this.stageWidth = stageWidth;
+    this.stageHeight = stageHeight;
+
+    this.points = this.getGoldenSpiralPoints();
     return this.points;
   }
 
   getGoldenSpiralPoints() {
     let points = [];
-    let initialSize = this.getSize();
+    let initialSize = this.initialSize;
     let direction = 1;
     let prevSize = 0;
     let size = 0;
@@ -189,7 +207,7 @@ export class Path {
   }
 
   getSize() {
-    const min = 10;
+    const min = 25;
     const range = min * 10;
     return min + Math.random() * range;
   }

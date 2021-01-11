@@ -1,4 +1,7 @@
 import { PathController } from "./path-controller.js";
+import { AirplaneController } from "./airplane-controller.js";
+
+import { Path } from "./path.js";
 
 class App {
   constructor() {
@@ -12,12 +15,19 @@ class App {
     // this.title.innerHTML = "KLM";
     // document.body.appendChild(this.title);
 
-    this.paths = [];
+    this.paths = [
+      // new Path(this.ctx, 30, 10, this.stageWidth, this.stageHeight),
+      // new Path(this.ctx, 10, 50, this.stageWidth, this.stageHeight),
+      // new Path(this.ctx, 100, 10, this.stageWidth, this.stageHeight),
+    ];
 
-    this.pathController = new PathController();
+    // this.pathController = new PathController();
 
-    window.addEventListener("resize", this.resize.bind(this), false);
+    // this.airplaneController = new AirplaneController();
+
     window.addEventListener("mouseup", this.onUp.bind(this), false);
+    window.addEventListener("resize", this.resize.bind(this), false);
+
     this.resize();
 
     requestAnimationFrame(this.animate.bind(this));
@@ -34,15 +44,12 @@ class App {
     for (let i = 0; i < this.paths.length; i++) {
       this.paths[i].resize(this.stageWidth, this.stageHeight);
     }
-
-    // this.pathController.resize(this.stageWidth, this.stageHeight);
   }
 
   animate(t) {
     requestAnimationFrame(this.animate.bind(this));
 
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-
     for (let i = 0; i < this.paths.length; i++) {
       this.paths[i].draw(this.ctx, t);
     }
@@ -52,8 +59,9 @@ class App {
     let cx = e.clientX;
     let cy = e.clientY;
 
-    this.paths.push(new PathController(cx, cy));
-    // this.pathController.addPath(this.ctx, cx, cy);
+    this.paths.push(
+      new Path(this.ctx, cx, cy, this.stageWidth, this.stageHeight)
+    );
   }
 }
 

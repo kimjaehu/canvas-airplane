@@ -15,7 +15,7 @@ export class PathController {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
 
-    this.airplaneController.resize(stageWidth, stageHeight);
+    // this.airplaneController.resize(stageWidth, stageHeight);
   }
 
   //   addPath(ctx, cx, cy) {
