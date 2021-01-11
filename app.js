@@ -49,9 +49,11 @@ class App {
   animate(t) {
     requestAnimationFrame(this.animate.bind(this));
 
+    let end = Boolean;
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
     for (let i = 0; i < this.paths.length; i++) {
-      this.paths[i].draw(this.ctx, t);
+      end = this.paths[i].draw(this.ctx, t);
+      end && this.paths.splice(i, 1);
     }
   }
 

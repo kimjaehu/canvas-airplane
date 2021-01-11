@@ -1,5 +1,4 @@
 import { Path } from "./path.js";
-import { AirplaneController } from "./airplane-controller.js";
 
 export class PathController {
   constructor(cx, cy) {
@@ -8,6 +7,8 @@ export class PathController {
     this.paths = [];
     this.cur = 0;
 
+    this.drawLine = false;
+    this.drawPoints = false;
     // this.airplaneController = new AirplaneController();
   }
 
@@ -30,7 +31,7 @@ export class PathController {
       this.stageWidth,
       this.stageHeight
     );
-    this.path.draw(ctx, t);
+    this.path.draw(ctx, t, this.drawLine, this.drawPoints);
     // for (let i = 0; i < this.paths.length; i++) {
 
     //     this.paths[i].draw(ctx, t);

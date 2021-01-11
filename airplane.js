@@ -1,5 +1,5 @@
 export class Airplane {
-  constructor(img, stageWidth, stageHeight) {
+  constructor(img, speed, stageWidth, stageHeight) {
     this.img = img;
 
     this.totalFrame = 8;
@@ -21,7 +21,7 @@ export class Airplane {
     this.fpsTime = 1000 / this.fps;
 
     this.percent = 0;
-    this.direction = 0.5;
+    this.speed = speed;
 
     this.path;
   }
@@ -41,11 +41,7 @@ export class Airplane {
       }
     }
 
-    this.draw(ctx, points);
-  }
-
-  draw(ctx, points) {
-    this.percent += this.direction;
+    this.percent += this.speed;
 
     if (this.percent < 0) {
       this.percent = 0;
@@ -54,21 +50,25 @@ export class Airplane {
       this.percent = 0;
     }
 
-    for (let i = 0; i < points.length; i++) {
-      let point = this.getQuadBezierPoint(
-        points[i].x1,
-        points[i].y1,
-        points[i].x2,
-        points[i].y2,
-        points[i].x3,
-        points[i].y3,
-        this.percent
-      );
-      ctx.fillRect(points[i].x1, points[i].y1, 10, 10);
-      ctx.fillRect(points[i].x2, points[i].y2, 10, 10);
-      ctx.fillRect(points[i].x3, points[i].y3, 10, 10);
-      this.drawAirplane(ctx, point);
-    }
+    this.draw(ctx, points, this.percent);
+
+    return this.percent;
+  }
+
+  draw(ctx, points, percent) {
+    let point = this.getQuadBezierPoint(
+      points.x1,
+      points.y1,
+      points.x2,
+      points.y2,
+      points.x3,
+      points.y3,
+      percent
+    );
+    // ctx.fillRect(points.x1, points.y1, 10, 10);
+    // ctx.fillRect(points.x2, points.y2, 10, 10);
+    // ctx.fillRect(points.x3, points.y3, 10, 10);
+    this.drawAirplane(ctx, point);
   }
 
   drawAirplane(ctx, point) {

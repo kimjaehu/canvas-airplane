@@ -8,17 +8,24 @@ export class Path {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
     this.total = 8;
+
     this.points = [];
+
+    this.minimumSize = 50;
     this.initialSize = this.getSize();
+
+    this.margin = 360;
 
     this.airplaneController = new AirplaneController();
   }
 
-  draw(ctx, t) {
+  draw(ctx, t, drawLine, drawPoints) {
     this.points = this.getGoldenSpiralPoints();
     ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
     ctx.strokeStyle = "rgba(255, 255, 255, 0.9)";
     ctx.lineWidth = 5;
+
+    let end = Boolean;
 
     let x1, y1, x2, y2, x3, y3;
 
@@ -33,8 +40,6 @@ export class Path {
       ctx.beginPath();
       ctx.moveTo(x1, y1);
 
-      // ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
-
       ctx.quadraticCurveTo(x2, y2, x3, y3);
 
       // ctx.fillRect(x1, y1, 10, 10);
@@ -43,9 +48,9 @@ export class Path {
 
       ctx.stroke();
     }
-    this.airplaneController.draw(ctx, t, this.points);
+    end = this.airplaneController.draw(ctx, t, this.points);
 
-    return this.points;
+    return end;
   }
 
   resize(stageWidth, stageHeight) {
@@ -74,52 +79,52 @@ export class Path {
     let i = 0;
 
     while (
-      x1 < this.stageWidth &&
-      x1 > 0 &&
-      y1 < this.stageHeight &&
-      y1 > 0 &&
-      x2 < this.stageWidth &&
-      x2 > 0 &&
-      y2 < this.stageHeight &&
-      y2 > 0 &&
-      x3 < this.stageWidth &&
-      x3 > 0 &&
-      y3 < this.stageHeight &&
-      y3 > 0
+      x1 < this.stageWidth + this.margin &&
+      x1 > -this.margin &&
+      y1 < this.stageHeight + this.margin &&
+      y1 > -this.margin &&
+      x2 < this.stageWidth + this.margin &&
+      x2 > -this.margin &&
+      y2 < this.stageHeight + this.margin &&
+      y2 > -this.margin &&
+      x3 < this.stageWidth + this.margin &&
+      x3 > -this.margin &&
+      y3 < this.stageHeight + this.margin &&
+      y3 > -this.margin
     ) {
       if (points.length === 0) {
         if (x <= this.stageWidth / 2 && y <= this.stageHeight / 2) {
-          x1 = this.stageWidth;
+          x1 = this.stageWidth + this.margin;
           y1 = (y + this.stageHeight) / 2;
           x2 = x;
-          y2 = (y + this.stageHeight) / 2;
+          y2 = this.stageHeight;
           x3 = x;
           y3 = y;
         }
 
         if (x > this.stageWidth / 2 && y <= this.stageHeight / 2) {
-          x1 = (this.stageWidth - x) / 2;
-          y1 = this.stageHeight;
+          x1 = -this.margin;
+          y1 = (this.stageHeight - y) / 2;
           x2 = x;
-          y2 = (y + this.stageHeight) / 2;
+          y2 = this.stageHeight;
           x3 = x;
           y3 = y;
         }
 
         if (x <= this.stageWidth / 2 && y > this.stageHeight / 2) {
-          x1 = this.stageWidth;
+          x1 = this.stageWidth + this.margin;
           y1 = (y + this.stageHeight) / 2;
           x2 = x;
-          y2 = (y + this.stageHeight) / 2;
+          y2 = this.stageHeight;
           x3 = x;
           y3 = y;
         }
 
         if (x > this.stageWidth / 2 && y > this.stageHeight / 2) {
-          x1 = 0;
+          x1 = -this.margin;
           y1 = (y + this.stageHeight) / 2;
           x2 = x;
-          y2 = (y + this.stageHeight) / 2;
+          y2 = this.stageHeight;
           x3 = x;
           y3 = y;
         }
@@ -207,7 +212,7 @@ export class Path {
   }
 
   getSize() {
-    const min = 25;
+    const min = this.minimumSize;
     const range = min * 10;
     return min + Math.random() * range;
   }
