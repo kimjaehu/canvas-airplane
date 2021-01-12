@@ -11,7 +11,7 @@ export class Path {
     this.points = [];
 
     // margin for drawing ouside screen
-    this.margin = 360;
+    this.margin = 90;
 
     // direction controls
     this.min = 0;
@@ -20,7 +20,7 @@ export class Path {
     this.randomDirection = Math.random() * (this.max - this.min) + this.min;
 
     // path size control
-    this.minimumSize = 50;
+    this.minimumSize = 100;
 
     this.initialSize = this.getSize();
 
@@ -45,16 +45,16 @@ export class Path {
       x3 = this.points[i].x3;
       y3 = this.points[i].y3;
 
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
+      // ctx.beginPath();
+      // ctx.moveTo(x1, y1);
 
-      ctx.quadraticCurveTo(x2, y2, x3, y3);
+      // ctx.quadraticCurveTo(x2, y2, x3, y3);
 
       // ctx.fillRect(x1, y1, 10, 10);
       // ctx.fillRect(x2, y2, 10, 10);
       // ctx.fillRect(x3, y3, 10, 10);
 
-      ctx.stroke();
+      // ctx.stroke();
     }
 
     end = this.airplaneController.draw(ctx, t, this.points);
@@ -106,8 +106,6 @@ export class Path {
     ) {
       if (points.length === 0) {
         let randomDirection = this.randomDirection;
-
-        console.log(randomDirection);
 
         if (x <= this.stageWidth / 2 && y <= this.stageHeight / 2) {
           x1 = this.stageWidth + this.margin;

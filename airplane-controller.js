@@ -6,7 +6,7 @@ export class AirplaneController {
     this.img.onload = () => {
       this.loaded();
     };
-    this.img.src = "airplane.png";
+    this.img.src = "airplane_blue.png";
 
     this.cur = 0;
     this.speed = 0.25;
