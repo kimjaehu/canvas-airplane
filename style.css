@@ -16,7 +16,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #00a1e4;
+  background-color: #00a3e0;
 }
 
 canvas {
@@ -24,11 +24,13 @@ canvas {
   height: 100%;
 }
 
-.title {
+.logo {
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: auto;
   color: #ffffff;
   font-size: 40px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }

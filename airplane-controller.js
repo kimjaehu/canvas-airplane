@@ -8,8 +8,6 @@ export class AirplaneController {
     };
     this.img.src = "airplane.png";
 
-    this.airplanes = [];
-
     this.cur = 0;
     this.speed = 0.25;
     this.isLoaded = false;
@@ -26,22 +24,15 @@ export class AirplaneController {
   }
 
   addAirplane() {
-    this.airplane = new Airplane(
-      this.img,
-      this.speed,
-      this.stageWidth,
-      this.stageHeight
-    );
+    this.airplane = new Airplane(this.img, this.stageWidth, this.stageHeight);
   }
 
   draw(ctx, t, points) {
     let percent;
     if (this.isLoaded) {
-      percent = this.airplane.animate(ctx, t, points[this.cur]);
-
+      percent = this.airplane.animate(ctx, t, points[this.cur], this.speed);
       percent == 100 - this.speed && this.cur++;
     }
-    console.log(this.cur == points.length);
 
     return this.cur == points.length;
   }

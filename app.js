@@ -1,6 +1,3 @@
-import { PathController } from "./path-controller.js";
-import { AirplaneController } from "./airplane-controller.js";
-
 import { Path } from "./path.js";
 
 class App {
@@ -10,10 +7,11 @@ class App {
     document.body.appendChild(this.canvas);
 
     // put logo in
-    // this.title = document.createElement("div");
-    // this.title.classList.add("title");
-    // this.title.innerHTML = "KLM";
-    // document.body.appendChild(this.title);
+    this.logo = document.createElement("IMG");
+    this.logo.classList.add("logo");
+    this.logo.setAttribute("src", "klm_logo_white.png");
+    this.logo.setAttribute("alt", "KLM");
+    document.body.appendChild(this.logo);
 
     this.paths = [
       // new Path(this.ctx, 30, 10, this.stageWidth, this.stageHeight),

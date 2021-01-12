@@ -7,14 +7,22 @@ export class Path {
     this.ctx = ctx;
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
-    this.total = 8;
 
     this.points = [];
 
-    this.minimumSize = 50;
-    this.initialSize = this.getSize();
-
+    // margin for drawing ouside screen
     this.margin = 360;
+
+    // direction controls
+    this.min = 0;
+    this.max = 1;
+
+    this.randomDirection = Math.random() * (this.max - this.min) + this.min;
+
+    // path size control
+    this.minimumSize = 50;
+
+    this.initialSize = this.getSize();
 
     this.airplaneController = new AirplaneController();
   }
@@ -48,6 +56,7 @@ export class Path {
 
       ctx.stroke();
     }
+
     end = this.airplaneController.draw(ctx, t, this.points);
 
     return end;
@@ -58,6 +67,9 @@ export class Path {
     this.stageHeight = stageHeight;
 
     this.points = this.getGoldenSpiralPoints();
+
+    this.airplaneController.resize(this.stageWidth, this.stageHeight);
+
     return this.points;
   }
 
@@ -93,9 +105,13 @@ export class Path {
       y3 > -this.margin
     ) {
       if (points.length === 0) {
+        let randomDirection = this.randomDirection;
+
+        console.log(randomDirection);
+
         if (x <= this.stageWidth / 2 && y <= this.stageHeight / 2) {
           x1 = this.stageWidth + this.margin;
-          y1 = (y + this.stageHeight) / 2;
+          y1 = (this.stageHeight + this.margin) * randomDirection;
           x2 = x;
           y2 = this.stageHeight;
           x3 = x;
@@ -104,7 +120,7 @@ export class Path {
 
         if (x > this.stageWidth / 2 && y <= this.stageHeight / 2) {
           x1 = -this.margin;
-          y1 = (this.stageHeight - y) / 2;
+          y1 = (this.stageHeight + this.margin) * randomDirection;
           x2 = x;
           y2 = this.stageHeight;
           x3 = x;
@@ -113,7 +129,7 @@ export class Path {
 
         if (x <= this.stageWidth / 2 && y > this.stageHeight / 2) {
           x1 = this.stageWidth + this.margin;
-          y1 = (y + this.stageHeight) / 2;
+          y1 = (this.stageHeight + this.margin) * randomDirection;
           x2 = x;
           y2 = this.stageHeight;
           x3 = x;
@@ -122,7 +138,7 @@ export class Path {
 
         if (x > this.stageWidth / 2 && y > this.stageHeight / 2) {
           x1 = -this.margin;
-          y1 = (y + this.stageHeight) / 2;
+          y1 = (this.stageHeight + this.margin) * randomDirection;
           x2 = x;
           y2 = this.stageHeight;
           x3 = x;
