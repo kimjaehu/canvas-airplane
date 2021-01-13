@@ -1,7 +1,7 @@
 export class Background {
-  constructor(light, dark) {
-    this.light = light;
-    this.dark = dark;
+  constructor() {
+    this.light = "#89cff0";
+    this.dark = "#00a3e0";
   }
 
   backgroundColor(paths) {

@@ -1,25 +1,27 @@
 import { Path } from "./path.js";
+import { CloudController } from "./cloud-controller.js";
+
 import { Background } from "./background.js";
 
 class App {
   constructor() {
     // logo
+
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
+    document.body.appendChild(this.canvas);
+
     this.logo = document.createElement("IMG");
     this.logo.classList.add("logo");
     this.logo.setAttribute("src", "klm_logo_white.png");
     this.logo.setAttribute("alt", "KLM Logo");
     document.body.appendChild(this.logo);
 
-    this.canvas = document.createElement("canvas");
-    this.ctx = this.canvas.getContext("2d");
-    document.body.appendChild(this.canvas);
-
     this.paths = [];
 
-    this.light = "#89cff0";
-    this.dark = "#00a3e0";
+    this.cloudController = new CloudController();
 
-    this.background = new Background(this.light, this.dark);
+    this.background = new Background();
 
     window.addEventListener("mouseup", this.onUp.bind(this), false);
     window.addEventListener("resize", this.resize.bind(this), false);
@@ -39,6 +41,8 @@ class App {
 
     this.background.backgroundColor(this.paths);
 
+    this.cloudController.resize(this.stageWidth, this.stageHeight);
+
     for (let i = 0; i < this.paths.length; i++) {
       this.paths[i].resize(this.stageWidth, this.stageHeight);
     }
@@ -47,10 +51,14 @@ class App {
   animate(t) {
     requestAnimationFrame(this.animate.bind(this));
 
-    this.background.backgroundColor(this.paths);
+    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
     let end = Boolean;
-    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+
+    this.background.backgroundColor(this.paths);
+
+    this.paths.length > 0 && this.cloudController.draw(this.ctx);
+
     for (let i = 0; i < this.paths.length; i++) {
       end = this.paths[i].draw(this.ctx, t);
       end && this.paths.splice(i, 1);
@@ -61,11 +69,11 @@ class App {
     let cx = e.clientX;
     let cy = e.clientY;
 
-    this.background.backgroundColor(this.paths);
-
     this.paths.push(
       new Path(this.ctx, cx, cy, this.stageWidth, this.stageHeight)
     );
+
+    this.background.backgroundColor(this.paths);
   }
 }
 
