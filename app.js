@@ -15,7 +15,6 @@ class App {
     document.body.appendChild(this.canvas);
 
     this.paths = [];
-    this.particles = [];
 
     this.light = "#89cff0";
     this.dark = "#00a3e0";
