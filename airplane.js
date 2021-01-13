@@ -49,6 +49,10 @@ export class Airplane {
       this.percent = 0;
     }
 
+    if (!points) {
+      return this.percent;
+    }
+
     this.draw(ctx, points, this.percent);
 
     return this.percent;
