@@ -51,9 +51,7 @@ class App {
     this.background.backgroundColor(this.paths);
 
     let end = Boolean;
-
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-
     for (let i = 0; i < this.paths.length; i++) {
       end = this.paths[i].draw(this.ctx, t);
       end && this.paths.splice(i, 1);
