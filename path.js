@@ -20,7 +20,7 @@ export class Path {
     this.randomDirection = Math.random() * (this.max - this.min) + this.min;
 
     // path size control
-    this.minimumSize = 20;
+    this.minimumSize = 200;
 
     this.initialSize = this.getSize();
 
@@ -45,14 +45,14 @@ export class Path {
       x3 = this.points[i].x3;
       y3 = this.points[i].y3;
 
-      ctx.beginPath();
+      // ctx.beginPath();
       // ctx.moveTo(x1, y1);
 
       // ctx.quadraticCurveTo(x2, y2, x3, y3);
 
-      ctx.fillRect(x1, y1, 10, 10);
-      ctx.fillRect(x2, y2, 10, 10);
-      ctx.fillRect(x3, y3, 10, 10);
+      // ctx.fillRect(x1, y1, 10, 10);
+      // ctx.fillRect(x2, y2, 10, 10);
+      // ctx.fillRect(x3, y3, 10, 10);
 
       // ctx.stroke();
     }
