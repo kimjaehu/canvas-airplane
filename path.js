@@ -45,16 +45,16 @@ export class Path {
       x3 = this.points[i].x3;
       y3 = this.points[i].y3;
 
-      // ctx.beginPath();
-      // ctx.moveTo(x1, y1);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
 
-      // ctx.quadraticCurveTo(x2, y2, x3, y3);
+      ctx.quadraticCurveTo(x2, y2, x3, y3);
 
-      // ctx.fillRect(x1, y1, 10, 10);
-      // ctx.fillRect(x2, y2, 10, 10);
-      // ctx.fillRect(x3, y3, 10, 10);
+      ctx.fillRect(x1, y1, 10, 10);
+      ctx.fillRect(x2, y2, 10, 10);
+      ctx.fillRect(x3, y3, 10, 10);
 
-      // ctx.stroke();
+      ctx.stroke();
     }
 
     end = this.airplaneController.draw(ctx, t, this.points);
@@ -94,15 +94,7 @@ export class Path {
       x1 < this.stageWidth + this.margin &&
       x1 > -this.margin &&
       y1 < this.stageHeight + this.margin &&
-      y1 > -this.margin &&
-      x2 < this.stageWidth + this.margin &&
-      x2 > -this.margin &&
-      y2 < this.stageHeight + this.margin &&
-      y2 > -this.margin &&
-      x3 < this.stageWidth + this.margin &&
-      x3 > -this.margin &&
-      y3 < this.stageHeight + this.margin &&
-      y3 > -this.margin
+      y1 > -this.margin
     ) {
       if (points.length === 0) {
         let randomDirection = this.randomDirection;
