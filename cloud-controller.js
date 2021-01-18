@@ -5,7 +5,7 @@ export class CloudController {
     this.clouds = [];
 
     this.cur = 0;
-    this.total = 40;
+    this.total = 80;
     this.isLoaded = false;
 
     this.max = 200;

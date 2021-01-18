@@ -24,7 +24,7 @@ class App {
 
     this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
 
-    window.addEventListener("mouseup", this.onUp.bind(this), false);
+    window.addEventListener("pointerup", this.onUp.bind(this), false);
     window.addEventListener("resize", this.resize.bind(this), false);
 
     this.resize();
@@ -61,7 +61,7 @@ class App {
     this.paths.length > 0 && this.cloudController.draw(this.ctx);
 
     for (let i = 0; i < this.paths.length; i++) {
-      end = this.paths[i].draw(this.ctx, t);
+      end = this.paths[i].draw(this.ctx);
       end && this.paths.splice(i, 1);
     }
   }

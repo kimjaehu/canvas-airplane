@@ -1,3 +1,5 @@
+const PI2 = Math.PI * 2;
+
 export class Cloud {
   constructor(x, y, speed, radius) {
     this.speed = speed;
@@ -16,7 +18,9 @@ export class Cloud {
 
     ctx.fillStyle = "rgba(255,255,255,0.2)";
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+
+    ctx.closePath();
     ctx.fill();
   }
 }
